@@ -1,0 +1,13 @@
+.ui-widget-header th {
+  padding: 2px;
+}
+
+.ui-widget-content td, .ui-widget-footer td {
+  border-bottom: 1px solid #cdd5da;
+  border-right: 1px solid #cdd5da;
+  padding: 2px;
+}
+
+.ui-icon {
+  float: left;
+}

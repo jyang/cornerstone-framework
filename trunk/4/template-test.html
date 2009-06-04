@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Template Test</title>
+<link rel="stylesheet" href="css/blitzer/jquery-ui-1.7.1.custom.css">
+<style>
+.right {
+  text-align: right;
+}
+</style>
+
+<script src="js/jquery-1.3.2.min.js"></script>
+<script src="js/pure.js"></script>
+
+<script>
+var cities = [
+  {country: 'China', city: 'Shanghai', population: 14000000},
+  {country: 'USA', city: 'Cupertino', population: 80000},
+  {country: 'USA', city: 'San Jose', population: 750000}
+];
+
+$(document).ready(function(){
+  $('.ui-widget').autoRender(cities);
+});
+</script>
+</head>
+<body>
+	<table class="ui-widget">
+		<thead class="ui-widget-header">
+			<tr>
+				<th>Country</th><th>City</th><th>Population</th>
+			</tr>
+		</thead>
+		<tbody class="ui-widget-content">
+			<tr class="context">
+				<td class="country"></td><td class="city"></td><td class="right population"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
