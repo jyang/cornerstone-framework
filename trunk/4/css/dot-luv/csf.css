@@ -1,22 +1,22 @@
 .ui-widget th {
-  border-top: 1px solid #cdd5da;
-  border-right: 1px solid #cdd5da;
-  border-bottom: 1px solid #cdd5da;
+  border-top: 1px solid #222222;
+  border-right: 1px solid #222222;
+  border-bottom: 2px solid #222222;
   padding: 2px;
 }
 
 .ui-widget th:first-child {
-  border-left: 1px solid #cdd5da;
+  border-left: 1px solid #222222;
 }
 
 .ui-widget-content th, .ui-widget-content td, .ui-widget-footer td {
-  border-bottom: 1px solid #cdd5da;
-  border-right: 1px solid #cdd5da;
+  border-bottom: 1px solid #222222;
+  border-right: 1px solid #222222;
   padding: 2px;
 }
 
 .ui-widget-content th:first-child, .ui-widget-content td:first-child, .ui-widget-footer td:first-child {
-  border-left: 1px solid #cdd5da;
+  border-left: 1px solid #222222;
 }
 
 .ui-icon {
