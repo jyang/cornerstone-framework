@@ -14,14 +14,16 @@
 <script src="js/pure.js"></script>
 <script>
 $(document).ready(function(){
-  var cities = [
-    {country: 'China', city: 'Shanghai', population: 14000000},
-    {country: 'USA', city: 'Cupertino', population: 80000},
-    {country: 'USA', city: 'San Jose', population: 750000},
-    {country: 'UK', city: 'London', population: 10000000},
-    {country: 'Mexico', city: 'Mexico City', population: 200000000},
-    {country: 'Brazil', city: 'San Paulo', population: 150000000}
-  ];
+  var cities = {
+  	columns: [{name: 'Country', key: 'country'}, {name: 'City', key: 'city'}, {name: 'Population', key: 'population', css: 'right'}],
+  	rows: [
+	    {country: 'China', city: 'Shanghai', population: 14000000},
+	    {country: 'USA', city: 'Cupertino', population: 80000},
+	    {country: 'USA', city: 'San Jose', population: 750000},
+	    {country: 'UK', city: 'London', population: 10000000},
+	    {country: 'Mexico', city: 'Mexico City', population: 200000000},
+	    {country: 'Brazil', city: 'San Paulo', population: 150000000}
+  ]};
   $('#list').autoRender(cities);
 
   // rows
@@ -71,11 +73,11 @@ $(document).ready(function(){
 		-->
 		<thead class="ui-state-default">
 			<tr>
-				<th>Country</th><th>City</th><th>Population</th>
+				<th class="columns name">Country</th>
 			</tr>
 		</thead>
 		<tbody class="ui-widget-content">
-			<tr class="context">
+			<tr class="rows">
 				<td class="country">China</td><td class="city">Shanghai</td><td class="right population">14,000,000</td>
 			</tr>
 		</tbody>
