@@ -22,3 +22,7 @@
 .ui-icon {
   float: left;
 }
+
+.ui-table-row-odd {
+	background-color: #eee;
+}
