@@ -46,12 +46,12 @@ $(document).ready(function(){
   	var currentRow = e.target.parentNode;
   	if (lastActiveRow == currentRow) {
       $(currentRow).removeClass('ui-state-active');
-	  lastActiveRow = null;
-	} else {
+	    lastActiveRow = null;
+	  } else {
       $(lastActiveRow).removeClass('ui-state-active');
       $(currentRow).addClass('ui-state-active');
-	  lastActiveRow = currentRow;
-	}
+	    lastActiveRow = currentRow;
+	  }
   });
 
   // icons

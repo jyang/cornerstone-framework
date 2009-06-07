@@ -30,7 +30,7 @@ var cities = {
 function run() {
 	var html = [];
 	with(cities) {
-		html.push('<table id="list" class="ui-widget" cellspacing="0"><thead class="ui-state-default">');
+		html.push('<table class="ui-widget" cellspacing="0"><thead class="ui-state-default">');
 
 		html.push('<tr>')
 
@@ -91,35 +91,35 @@ function run() {
 
 		html.push('</tbody></table>');
 	};
-	document.getElementById('result').innerHTML = html.join('');
+	document.getElementById('city-table').innerHTML = html.join('');
 
 	addEventListeners();
 }
 
 function addEventListeners() {
 	// rows
-  $('#list .ui-widget-content tr').hover(function(e) {
+  $('.ui-widget-content tr', '#city-table').hover(function(e) {
   	$(e.target.parentNode).addClass('ui-state-hover');
   }, function(e) {
   	$(e.target.parentNode).removeClass('ui-state-hover');
   });
 
   var lastActiveRow = null;
-  $('#list .ui-widget-content tr').dblclick(function(e) {
+  $('.ui-widget-content tr', '#city-table').dblclick(function(e) {
   	var currentRow = e.target.parentNode;
   	if (lastActiveRow == currentRow) {
       $(currentRow).removeClass('ui-state-active');
-	  lastActiveRow = null;
-	} else {
+		  lastActiveRow = null;
+		} else {
       $(lastActiveRow).removeClass('ui-state-active');
       $(currentRow).addClass('ui-state-active');
-	  lastActiveRow = currentRow;
-	}
+		  lastActiveRow = currentRow;
+		}
   });
 };
 </script>
 </head>
 <body onload="run()">
-	<div id="result"></div>
+	<div id="city-table"></div>
 </body>
 </html>
