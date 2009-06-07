@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+<style>
+.right {
+	text-align: right;
+}
+th {
+	border-bottom: 2px solid #888;
+}
+.odd {
+	background-color: #eee;
+}
+</style>
+
+<script>
+var cities = {
+	columns: [
+	  {name: 'Country', key: 'country'},
+		{name: 'City', key: 'city'},
+		{name: 'Population', key: 'population', css: 'right'}],
+	rows: [
+	  {country: 'China', city: 'Shanghai', population: 14000000},
+	  {country: 'USA', city: 'Cupertino', population: 80000},
+	  {country: 'USA', city: 'San Jose', population: 750000},
+	  {country: 'UK', city: 'London', population: 10000000},
+	  {country: 'Mexico', city: 'Mexico City', population: 200000000},
+	  {country: 'Brazil', city: 'San Paulo', population: 150000000}
+]};
+
+function run() {
+	var html = [];
+	with(cities) {
+		html.push('<table><thead>');
+
+		html.push('<tr>')
+
+		for (var _i_columns = 0; _i_columns < columns.length; _i_columns++) {
+			var _i_even_columns = _i_columns % 2 == 0;
+			var _e_columns = columns[_i_columns];
+
+			var _i = _i_columns;
+			var _i_even = _i_even_columns;
+			var _e = _e_columns;
+
+			with(_e_columns) {
+				var _234;
+				try {
+					_234 = name;
+				} catch(e) {
+					_234 = '';
+				}
+				html.push('<th>', _234, '</th>');
+			}
+		}
+
+		html.push('</tr></thead><tbody>');
+
+		for (var _i_rows = 0; _i_rows < rows.length; _i_rows++) {
+			var _i_even_rows = _i_rows % 2 == 0;
+			var _e_rows = rows[_i_rows];
+
+      var _i = _i_rows;
+			var _i_even = _i_even_rows;
+			var _e = _e_rows;
+
+			html.push('<tr class="', _i_even ? 'even' : 'odd', '">')
+			with (_e_rows) {
+		  	for (var _i_columns = 0; _i_columns < columns.length; _i_columns++) {
+					var _i_even_columns = _i_columns % 2 == 0;
+					var _e_columns = columns[_i_columns];
+
+					with(_e_columns) {
+						var _123;
+						try {
+							_123 = css;
+						} catch(e) {
+							_123 = '';
+						}
+						var _456;
+						try {
+							_456 = eval(key);
+						} catch(e) {
+							_456 = '';
+						}
+				  	html.push('<td class="', _123, '">', _456, '</td>'); // rows[_i_rows][key]
+					}
+	  		}
+			}
+			html.push('</tr>');
+		}
+
+		html.push('</tbody></table>');
+	};
+	document.getElementById('result').innerHTML = html.join('');
+}
+</script>
+</head>
+<body onload="run()">
+	<div id="result"></div>
+</body>
+</html>
