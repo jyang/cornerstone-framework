@@ -20,7 +20,8 @@
 }
 
 .ui-icon {
-  float: left;
+  /* float: left; */
+	display: inline-block;
 }
 
 .ui-table-odd {
