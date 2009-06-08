@@ -15,88 +15,88 @@
 <script>
 $(document).ready(function(){
   var cities = {
-  	columns: [{name: 'Country', key: 'country'}, {name: 'City', key: 'city'}, {name: 'Population', key: 'population', css: 'right'}],
-  	rows: [
-	    {country: 'China', city: 'Shanghai', population: 14000000},
-	    {country: 'USA', city: 'Cupertino', population: 80000},
-	    {country: 'USA', city: 'San Jose', population: 750000},
-	    {country: 'UK', city: 'London', population: 10000000},
-	    {country: 'Mexico', city: 'Mexico City', population: 200000000},
-	    {country: 'Brazil', city: 'San Paulo', population: 150000000}
+    columns: [{name: 'Country', key: 'country'}, {name: 'City', key: 'city'}, {name: 'Population', key: 'population', css: 'right'}],
+    rows: [
+      {country: 'China', city: 'Shanghai', population: 14000000},
+      {country: 'USA', city: 'Cupertino', population: 80000},
+      {country: 'USA', city: 'San Jose', population: 750000},
+      {country: 'UK', city: 'London', population: 10000000},
+      {country: 'Mexico', city: 'Mexico City', population: 200000000},
+      {country: 'Brazil', city: 'San Paulo', population: 150000000}
   ]};
   $('#list').autoRender(cities);
 
   // rows
   $('#list .ui-widget-content tr').hover(function(e) {
-  	$(e.target.parentNode).addClass('ui-state-hover');
+    $(e.target.parentNode).addClass('ui-state-hover');
   }, function(e) {
-  	$(e.target.parentNode).removeClass('ui-state-hover');
+    $(e.target.parentNode).removeClass('ui-state-hover');
   });
 
 //  var lastHighlightedRow = null;
 //  $('#list .ui-widget-content tr').click(function(e) {
-//  	if (lastHighlightedRow) {
-//		$(lastHighlightedRow).removeClass('ui-state-highlight');
-//	}
-//  	(lastHighlightedRow = $(e.target.parentNode)).addClass('ui-state-highlight');
+//    if (lastHighlightedRow) {
+//    $(lastHighlightedRow).removeClass('ui-state-highlight');
+//  }
+//    (lastHighlightedRow = $(e.target.parentNode)).addClass('ui-state-highlight');
 //  });
 
   var lastActiveRow = null;
   $('#list .ui-widget-content tr').dblclick(function(e) {
-  	var currentRow = e.target.parentNode;
-  	if (lastActiveRow == currentRow) {
+    var currentRow = e.target.parentNode;
+    if (lastActiveRow == currentRow) {
       $(currentRow).removeClass('ui-state-active');
-	    lastActiveRow = null;
-	  } else {
+      lastActiveRow = null;
+    } else {
       $(lastActiveRow).removeClass('ui-state-active');
       $(currentRow).addClass('ui-state-active');
-	    lastActiveRow = currentRow;
-	  }
+      lastActiveRow = currentRow;
+    }
   });
 
   // icons
   $('#list .ui-icon').hover(function(e) {
-  	$(e.target).addClass('ui-state-hover');
+    $(e.target).addClass('ui-state-hover');
   }, function(e) {
-  	$(e.target).removeClass('ui-state-hover');
+    $(e.target).removeClass('ui-state-hover');
   })
   $('#list .ui-icon').click(function(e) {
-  	console.log($(e.target).hasClass('ui-icon-plus'));
+    console.log($(e.target).hasClass('ui-icon-plus'));
   })
 });
 </script>
 </head>
 <body>
-	<table id="list" class="ui-widget" cellspacing="0">
-		<!--
-		<caption class="ui-widget-header">Population of World's Cities</caption>
-		-->
-		<thead class="ui-state-default">
-			<tr>
-				<th class="columns name">Country</th>
-			</tr>
-		</thead>
-		<tbody class="ui-widget-content">
-			<tr class="rows">
-				<td class="country">China</td><td class="city">Shanghai</td><td class="right population">14,000,000</td>
-			</tr>
-		</tbody>
-		<tfoot class="ui-widget-footer ui-state-default ui-corner-bl ui-corner-br">
-			<tr>
-				<td colspan="3">
-					<div class="ui-icon ui-corner-all ui-icon-plus"></div>
-					<div class="ui-icon ui-corner-all ui-icon-pencil"></div>
-					<div class="ui-icon ui-corner-all ui-icon-trash"></div>
-					<!--
-					<div class="ui-icon ui-corner-all ui-icon-seek-first"></div>
-					<div class="ui-icon ui-corner-all ui-icon-seek-prev"></div>
-					1 - 10 / 50
-					<div class="ui-icon ui-corner-all ui-icon-seek-next"></div>
-					<div class="ui-icon ui-corner-all ui-icon-seek-last"></div>
-					-->
-				</td>
-			</tr>
-		</tfoot>
-	</table>
+  <table id="list" class="ui-widget" cellspacing="0">
+    <!--
+    <caption class="ui-widget-header">Population of World's Cities</caption>
+    -->
+    <thead class="ui-state-default">
+      <tr>
+        <th class="columns name">Country</th>
+      </tr>
+    </thead>
+    <tbody class="ui-widget-content">
+      <tr class="rows">
+        <td class="country">China</td><td class="city">Shanghai</td><td class="right population">14,000,000</td>
+      </tr>
+    </tbody>
+    <tfoot class="ui-widget-footer ui-state-default ui-corner-bl ui-corner-br">
+      <tr>
+        <td colspan="3">
+          <div class="ui-icon ui-corner-all ui-icon-plus"></div>
+          <div class="ui-icon ui-corner-all ui-icon-pencil"></div>
+          <div class="ui-icon ui-corner-all ui-icon-trash"></div>
+          <!--
+          <div class="ui-icon ui-corner-all ui-icon-seek-first"></div>
+          <div class="ui-icon ui-corner-all ui-icon-seek-prev"></div>
+          1 - 10 / 50
+          <div class="ui-icon ui-corner-all ui-icon-seek-next"></div>
+          <div class="ui-icon ui-corner-all ui-icon-seek-last"></div>
+          -->
+        </td>
+      </tr>
+    </tfoot>
+  </table>
 </body>
 </html>
