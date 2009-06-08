@@ -21,9 +21,19 @@
 
 .ui-icon {
   /* float: left; */
-	display: inline-block;
+  display: inline-block;
 }
 
 .ui-table-odd {
-	background-color: #eee;
+  background-color: #eee;
+}
+
+.ui-table-icon-state-hover {
+  background-color: #fcd3a1;
+}
+
+.ui-table-state-hover {
+  background: #f6f6f6 url(images/ui-bg_highlight-hard_100_f6f6f6_1x100.png) 50% 50% repeat-x;
+  color: #111111;
+  outline: none; 
 }
