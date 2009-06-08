@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Table Test</title>
+
+<link rel="stylesheet" href="css/blitzer/jquery-ui.css">
+<link rel="stylesheet" href="css/blitzer/csf.css">
+
+<style>
+.right {
+	text-align: right;
+}
+</style>
+
+<script src="js/jquery-1.3.2.min.js"></script>
+<script src="js/jquery-ui-1.7.2.custom.min.js"></script>
+<script src="js/jquery-ui-table.js"></script>
+
+<script>
+var cities = {
+	columns: [
+	  {name: 'Country', key: 'country'},
+		{name: 'City', key: 'city'},
+		{name: 'Population', key: 'population', css: 'right'}],
+	rows: [
+	  {country: 'China', city: 'Shanghai', population: 14000000},
+	  {country: 'USA', city: 'Cupertino', population: 80000},
+	  {country: 'USA', city: 'San Jose', population: 750000},
+	  {country: 'UK', city: 'London', population: 10000000},
+	  {country: 'Mexico', city: 'Mexico City', population: 200000000},
+	  {country: 'Brazil', city: 'San Paulo', population: 150000000}
+]};
+
+$(function() {
+	$('#city-table').table(cities);
+});
+</script>
+</head>
+<body>
+	<div id="city-table"></div>
+</body>
+</html>
