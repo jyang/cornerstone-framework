@@ -7,119 +7,119 @@
 
 <style>
 .right {
-	text-align: right;
+  text-align: right;
 }
 </style>
 
 <script src="js/jquery-1.3.2.min.js"></script>
 <script>
 var cities = {
-	columns: [
-	  {name: 'Country', key: 'country'},
-		{name: 'City', key: 'city'},
-		{name: 'Population', key: 'population', css: 'right'}],
-	rows: [
-	  {country: 'China', city: 'Shanghai', population: 14000000},
-	  {country: 'USA', city: 'Cupertino', population: 80000},
-	  {country: 'USA', city: 'San Jose', population: 750000},
-	  {country: 'UK', city: 'London', population: 10000000},
-	  {country: 'Mexico', city: 'Mexico City', population: 200000000},
-	  {country: 'Brazil', city: 'San Paulo', population: 150000000}
+  columns: [
+    {name: 'Country', key: 'country'},
+    {name: 'City', key: 'city'},
+    {name: 'Population', key: 'population', css: 'right'}],
+  rows: [
+    {country: 'China', city: 'Shanghai', population: 14000000},
+    {country: 'USA', city: 'Cupertino', population: 80000},
+    {country: 'USA', city: 'San Jose', population: 750000},
+    {country: 'UK', city: 'London', population: 10000000},
+    {country: 'Mexico', city: 'Mexico City', population: 200000000},
+    {country: 'Brazil', city: 'San Paulo', population: 150000000}
 ]};
 
 function run() {
-	var html = [];
-	with(cities) {
-		html.push('<table class="ui-widget" cellspacing="0"><thead class="ui-state-default">');
+  var html = [];
+  with(cities) {
+    html.push('<table class="ui-widget" cellspacing="0"><thead class="ui-state-default">');
 
-		html.push('<tr>')
+    html.push('<tr>')
 
-		for (var _i_columns = 0; _i_columns < columns.length; _i_columns++) {
-			var _i_even_columns = _i_columns % 2 == 0;
-			var _e_columns = columns[_i_columns];
+    for (var _i_columns = 0; _i_columns < columns.length; _i_columns++) {
+      var _i_even_columns = _i_columns % 2 == 0;
+      var _e_columns = columns[_i_columns];
 
-			var _i = _i_columns;
-			var _i_even = _i_even_columns;
-			var _e = _e_columns;
+      var _i = _i_columns;
+      var _i_even = _i_even_columns;
+      var _e = _e_columns;
 
-			with(_e_columns) {
-				var _234;
-				try {
-					_234 = name;
-				} catch(e) {
-					_234 = '';
-				}
-				html.push('<th>', _234, '</th>');
-			}
-		}
+      with(_e_columns) {
+        var _234;
+        try {
+          _234 = name;
+        } catch(e) {
+          _234 = '';
+        }
+        html.push('<th>', _234, '</th>');
+      }
+    }
 
-		html.push('</tr></thead><tbody class="ui-widget-content">');
+    html.push('</tr></thead><tbody class="ui-widget-content">');
 
-		for (var _i_rows = 0; _i_rows < rows.length; _i_rows++) {
-			var _i_even_rows = _i_rows % 2 == 0;
-			var _e_rows = rows[_i_rows];
+    for (var _i_rows = 0; _i_rows < rows.length; _i_rows++) {
+      var _i_even_rows = _i_rows % 2 == 0;
+      var _e_rows = rows[_i_rows];
 
       var _i = _i_rows;
-			var _i_even = _i_even_rows;
-			var _e = _e_rows;
+      var _i_even = _i_even_rows;
+      var _e = _e_rows;
 
-			html.push('<tr class="', _i_even ? 'ui-table-even' : 'ui-table-odd', '">')
-			with (_e_rows) {
-		  	for (var _i_columns = 0; _i_columns < columns.length; _i_columns++) {
-					var _i_even_columns = _i_columns % 2 == 0;
-					var _e_columns = columns[_i_columns];
+      html.push('<tr class="', _i_even ? 'ui-table-even' : 'ui-table-odd', '">')
+      with (_e_rows) {
+        for (var _i_columns = 0; _i_columns < columns.length; _i_columns++) {
+          var _i_even_columns = _i_columns % 2 == 0;
+          var _e_columns = columns[_i_columns];
 
-					with(_e_columns) {
-						var _123;
-						try {
-							_123 = css;
-						} catch(e) {
-							_123 = '';
-						}
-						var _456;
-						try {
-							_456 = eval(key);
-						} catch(e) {
-							_456 = '';
-						}
-				  	html.push('<td class="', _123, '">', _456, '</td>'); // rows[_i_rows][key]
-					}
-	  		}
-			}
-			html.push('</tr>');
-		}
+          with(_e_columns) {
+            var _123;
+            try {
+              _123 = css;
+            } catch(e) {
+              _123 = '';
+            }
+            var _456;
+            try {
+              _456 = eval(key);
+            } catch(e) {
+              _456 = '';
+            }
+            html.push('<td class="', _123, '">', _456, '</td>'); // rows[_i_rows][key]
+          }
+        }
+      }
+      html.push('</tr>');
+    }
 
-		html.push('</tbody></table>');
-	};
-	document.getElementById('city-table').innerHTML = html.join('');
+    html.push('</tbody></table>');
+  };
+  document.getElementById('city-table').innerHTML = html.join('');
 
-	addEventListeners();
+  addEventListeners();
 }
 
 function addEventListeners() {
-	// rows
+  // rows
   $('.ui-widget-content tr', '#city-table').hover(function(e) {
-  	$(e.target.parentNode).addClass('ui-state-hover');
+    $(e.target.parentNode).addClass('ui-state-hover');
   }, function(e) {
-  	$(e.target.parentNode).removeClass('ui-state-hover');
+    $(e.target.parentNode).removeClass('ui-state-hover');
   });
 
   var lastActiveRow = null;
   $('.ui-widget-content tr', '#city-table').dblclick(function(e) {
-  	var currentRow = e.target.parentNode;
-  	if (lastActiveRow == currentRow) {
+    var currentRow = e.target.parentNode;
+    if (lastActiveRow == currentRow) {
       $(currentRow).removeClass('ui-state-active');
-		  lastActiveRow = null;
-		} else {
+      lastActiveRow = null;
+    } else {
       $(lastActiveRow).removeClass('ui-state-active');
       $(currentRow).addClass('ui-state-active');
-		  lastActiveRow = currentRow;
-		}
+      lastActiveRow = currentRow;
+    }
   });
 };
 </script>
 </head>
 <body onload="run()">
-	<div id="city-table"></div>
+  <div id="city-table"></div>
 </body>
 </html>
