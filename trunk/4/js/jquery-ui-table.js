@@ -8,32 +8,81 @@
 
 (function($) {
 
+  // -----
+  // utils
+
   var util = {
     addHover: function(e) {
-      $(e.target).addClass('ui-table-icon-state-hover');
+      return $(e.target).addClass('ui-table-icon-state-hover');
     },
     removeHover: function(e) {
-      $(e.target).removeClass('ui-table-icon-state-hover');
+      return $(e.target).removeClass('ui-table-icon-state-hover');
     },
     setHover: function(e) {
-      e.hover(util.addHover, util.removeHover);
+      return e.hover(util.addHover, util.removeHover);
     },
-    createIcon: function(name, model) {
-      return '<span class="ui-icon ui-corner-all ui-icon-' + name + '"' +
-          (model ? 'model="' + model + '"' : '')+
-          '></span>';
+
+    /**
+     * @param name Name of icon as in "ui-icon-<name>"
+     * @param title Tool tip
+     * @param model Information about how to access model
+     * @return HTML source of the icon
+     */
+    createIcon: function(name, title, model) {
+      var html =  ['<span class="ui-icon ui-corner-all ui-icon-', name , '"'];
+
+      if (title) {
+        html.push('title="', title, '"');
+      }
+
+      if (model) {
+        html.push('model="', model, '"');
+      }
+
+      html.push('></span>');
+
+      return html.join('');
+    },
+
+    getContext: function(e) {
+      var icon = $(e.target);
+      var model = icon.attr('model').split(',');
+      return {
+        icon: icon, cell: icon.parent(),
+        widget: util.findWidget(icon, 'table'),
+        model: model, r: model[0], c: model[1]
+      };
     },
 
     /**
      * Finds the widget containing an element
-     * @param e event
+     * @param e Element to find ancestor for
+     * @param name Name of widget
      * @return Widget the event is triggered on
      */
-    findWidget: function(e) {
-      var element = e.closest('table').parent();
-      return element.data('table');
+    findWidget: function(e, name) {
+      var element = e.closest(name).parent();
+      return element.data(name);
     }
   };
+
+  var textEditor = {
+
+    _init: function() {
+      var value = this.options.value;
+      var html = ['<input value="', value, '" size="', value.length, '">'];
+      this.element.append(html.join(''));
+    }
+
+  };
+
+  $.widget('ui.textEditor', textEditor);
+  $.extend($.ui.textEditor, {
+    version: '@VERSION',
+    defaults: {
+      value: ''
+    }
+  });
 
   var table = {
 
@@ -55,9 +104,7 @@
         });
         html.push('</tr>');
       });
-      html.push('</tr></tbody>');
-      // html.push('<tfoot class="ui-widget-footer ui-state-default ui-corner-bl ui-corner-br"><tr><td colspan="3"><div class="ui-icon ui-corner-all ui-icon-plus"></div><div class="ui-icon ui-corner-all ui-icon-pencil"></div><div class="ui-icon ui-corner-all ui-icon-trash"></div></td></tr></tfoot>');
-      html.push('</table>');
+      html.push('</tr></tbody></table>');
 
       this.element.append(html.join(''));
 
@@ -82,57 +129,66 @@
 
     _cell: function(r, row, c, column) {
       return row[column.key] +
-          (column.editor ? util.createIcon('pencil', r + ',' + c) : '');
+          (column.editor ? util.createIcon('pencil', 'edit', r + ',' + c) :
+              '');
     },
 
     _editCell: function(e) {
-      var icon = $(e.target);
-      var widget = util.findWidget(icon);
-      with(widget.options) {
-        var model = icon.attr('model');
-        var rc = model.split(',');
-        var r = rc[0], c = rc[1];
-        if (columns[c].editor == 'text') {
-          var cell = icon.parent();
-          cell.html('editor ' + util.createIcon('disk', model) +
-              util.createIcon('cancel', model));
+      var context = util.getContext(e);
+      with(context) {
+        with(widget.options) {
+          if (columns[c].editor == 'text') {
+            var text = cell.text();
+            cell.html('<span class="editor"></span>' +
+                util.createIcon('disk', 'save', model) +
+                util.createIcon('cancel', 'cancel', model));
 
-          util.setHover($('.ui-icon-disk', cell).click(widget._saveCell));
-          util.setHover($('.ui-icon-cancel', cell).click(widget._cancelCell));
+            var editor = $('.editor', cell).textEditor({value: text});
+
+            util.setHover($('.ui-icon-disk', cell)).click(function(e) {
+              widget._saveCell(e, editor);
+            });
+            util.setHover($('.ui-icon-cancel', cell).click(widget._cancelCell));
+          }
         }
       }
     },
 
     _cancelCell: function(e) {
-      var icon = $(e.target);
-      var widget = util.findWidget(icon);
-      widget._showCell(icon, widget, function() {}); 
+      var context = util.getContext(e);
+      context.widget._showCell(context);
     },
 
-    _saveCell: function(e) {
-      var icon = $(e.target);
-      var widget = util.findWidget(icon);
-      widget._showCell(icon, widget, function() {
-        // save
-      }); 
+    _saveCell: function(e, editor) {
+      var context = util.getContext(e);
+      with(context) {
+        with(widget.options) {
+          var value = $('input', editor).attr('value');
+          rows[r][columns[c].key] = value;
+          widget._showCell(context);
+          widget._notifyUpdate(rows[r], r);
+        }
+      }
     },
 
-    _showCell: function(icon, widget, continuation) {
-      var cell = icon.parent();
-      var model = icon.attr('model').split(',');
-      var r = model[0], c = model[1];
+    _showCell: function(context) {
+      with(context) {
+        var cellContent = widget._cell(
+            r, widget.options.rows[r], c, widget.options.columns[c]);
+        cell.html(cellContent);
 
-      var cellContent = widget._cell(
-          r, widget.options.rows[r], c, widget.options.columns[c]);
-      cell.html(cellContent);
+        util.setHover($('.ui-icon-pencil', cell).click(widget._editCell));
 
-      util.setHover($('.ui-icon-pencil', cell).click(widget._editCell));
+        cell.hover(function(e) {
+          $(e.target).closest('tr').addClass('ui-table-state-hover');
+        }, function(e) {
+          $(e.target).closest('tr').removeClass('ui-table-state-hover');
+        });
+      }
+    },
 
-      cell.hover(function(e) {
-        $(e.target).closest('tr').addClass('ui-table-state-hover');
-      }, function(e) {
-        $(e.target).closest('tr').removeClass('ui-table-state-hover');
-      });
+    _notifyUpdate: function(row, rowNum) {
+      $(row).log('Updated: [' + rowNum + ']');
     }
 
   };
@@ -147,3 +203,12 @@
   });
 
 })(jQuery);
+
+jQuery.fn.log = function (msg) {
+  if ($.browser.msie) {
+    $('body').append('<textarea style="width:100%">' + msg + '</textarea><br>');
+  } else {
+    console.log("%s: %o", msg, this);
+    return this;
+  }
+};
