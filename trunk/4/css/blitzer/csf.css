@@ -37,3 +37,7 @@
   color: #111111;
   outline: none; 
 }
+
+.ui-widget td input {
+  background-color: #fcd3a1;
+}
