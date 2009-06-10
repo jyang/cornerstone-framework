@@ -21,15 +21,23 @@ var cities = {
   columns: [
     {name: 'Country', key: 'country'},
     {name: 'City', key: 'city'},
-    {name: 'Population', key: 'population', css: 'right', editor: 'text'}],
-  rows: [
-    {country: 'China', city: 'Shanghai', population: 14000000},
-    {country: 'USA', city: 'Cupertino', population: 80000},
-    {country: 'USA', city: 'San Jose', population: 750000},
-    {country: 'UK', city: 'London', population: 10000000},
-    {country: 'Mexico', city: 'Mexico City', population: 200000000},
-    {country: 'Brazil', city: 'San Paulo', population: 150000000}
-]};
+    {name: 'Population', key: 'population', css: 'right', editor: 'text'},
+    {
+      name: 'Attributes',
+      key: 'attr',
+      decorator: function(v){
+        return typeof(v) == 'object' && v.toSource ? v.toSource() : v;
+      }
+    }
+  ], rows: [
+    {country: 'China', city: 'Shanghai', population: 14000000, attr: ['home', 'sophisticated', {}]},
+    {country: 'USA', city: 'Cupertino', population: 80000, attr: {}},
+    {country: 'USA', city: 'San Jose', population: 750000, attr: {}},
+    {country: 'UK', city: 'London', population: 10000000, attr: {}},
+    {country: 'Mexico', city: 'Mexico City', population: 200000000, attr: {}},
+    {country: 'Brazil', city: 'San Paulo', population: 150000000, attr: {}}
+  ]
+};
 
 $(function() {
   $('#city-table').table(cities);
