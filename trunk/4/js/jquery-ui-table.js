@@ -1,7 +1,7 @@
 /**
  * table widget
  * Exepcted options: {
- *   columns: [{name: ..., key: ..., css: ..., editor: ...}, ...],
+ *   columns: [{title: ..., name: ..., css: ..., editor: ...}, ...],
  *   rows: [{...}, ...]
  * }
  */
@@ -92,7 +92,7 @@
 
       var html = ['<table class="ui-widget" cellspacing="0"><thead class="ui-state-default"><tr>'];
       $.each(options.columns, function(i, e) {
-        html.push('<th>', e.name, '</th>');
+        html.push('<th>', e.title, '</th>');
       });
       html.push('</tr></thead><tbody class="ui-widget-content">');
       $.each(options.rows, function(r, row) {
@@ -128,8 +128,8 @@
     },
 
     _cell: function(r, row, c, column) {
-      var value = row[column.key];
-      value = column.decorator ? column.decorator(value) : value;
+      var value = row[column.name];
+      value = column.decorator ? column.decorator(name, value) : value;
       return value + (column.editor ?
           util.createIcon('pencil', 'edit', r + ',' + c) : '');
     },
@@ -141,15 +141,15 @@
           if (columns[c].editor == 'text') {
             var text = cell.text();
             cell.html('<span class="editor"></span>' +
-                util.createIcon('disk', 'save', model) +
-                util.createIcon('cancel', 'cancel', model));
+                util.createIcon('check', 'save', model) +
+                util.createIcon('close', 'cancel', model));
 
             var editor = $('.editor', cell).textEditor({value: text});
 
-            util.setHover($('.ui-icon-disk', cell)).click(function(e) {
+            util.setHover($('.ui-icon-check', cell)).click(function(e) {
               widget._saveCell(e, editor);
             });
-            util.setHover($('.ui-icon-cancel', cell).click(widget._cancelCell));
+            util.setHover($('.ui-icon-close', cell).click(widget._cancelCell));
           }
         }
       }
@@ -165,7 +165,7 @@
       with(context) {
         with(widget.options) {
           var value = $('input', editor).attr('value');
-          rows[r][columns[c].key] = value;
+          rows[r][columns[c].name] = value;
           widget._showCell(context);
           widget._notifyUpdate(rows[r], r);
         }

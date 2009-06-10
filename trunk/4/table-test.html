@@ -19,14 +19,14 @@
 <script>
 var cities = {
   columns: [
-    {name: 'Country', key: 'country'},
-    {name: 'City', key: 'city'},
-    {name: 'Population', key: 'population', css: 'right', editor: 'text'},
+    {title: 'Country', name: 'country'},
+    {title: 'City', name: 'city'},
+    {title: 'Population', name: 'population', css: 'right', editor: 'text'},
     {
-      name: 'Attributes',
-      key: 'attr',
-      decorator: function(v){
-        return typeof(v) == 'object' && v.toSource ? v.toSource() : v;
+      title: 'Attributes',
+      name: 'attr',
+      decorator: function(n, v){
+        return typeof(n, v) == 'object' && v.toSource ? v.toSource() : v;
       }
     }
   ], rows: [
