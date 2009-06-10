@@ -128,9 +128,10 @@
     },
 
     _cell: function(r, row, c, column) {
-      return row[column.key] +
-          (column.editor ? util.createIcon('pencil', 'edit', r + ',' + c) :
-              '');
+      var value = row[column.key];
+      value = column.decorator ? column.decorator(value) : value;
+      return value + (column.editor ?
+          util.createIcon('pencil', 'edit', r + ',' + c) : '');
     },
 
     _editCell: function(e) {
