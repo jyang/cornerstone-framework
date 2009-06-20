@@ -166,8 +166,19 @@
         with(widget.options) {
           var value = $('input', editor).attr('value');
           rows[r][columns[c].name] = value;
-          widget._showCell(context);
-          widget._notifyChange(rows[r], r, c);
+
+          // notify change
+          var change = widget.options.columns[c].change;
+          if (change) {
+            $(cell).spinner({spinning: true});
+            change(rows[r], r, c, function(){
+              $(cell).data('spinner').destroy();  // TODO: improve
+              $(cell).spinner({spinning: false});
+              widget._showCell(context);
+            });
+          } else {
+            widget._showCell(context);
+          }
         }
       }
     },
@@ -190,9 +201,12 @@
 
     _notifyChange: function(row, r, c) {
       var change = this.options.columns[c].change;
-      if (change) change(row, r, c, function() {
-        
-      });
+      if (change) {
+        // TODO: start spinner
+        change(row, r, c, function(){
+          // TODO: stop spinner
+        });
+      }
     }
 
   };
