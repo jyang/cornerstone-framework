@@ -129,7 +129,7 @@
 
     _cell: function(r, row, c, column) {
       var value = row[column.name];
-      value = column.decorator ? column.decorator(column.name, value) : value;
+      value = column.decorator ? column.decorator(column.name, value, row) : value;
       return value + (column.editor ?
           util.createIcon('pencil', 'edit', r + ',' + c) : '');
     },
