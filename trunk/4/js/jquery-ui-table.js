@@ -167,7 +167,7 @@
           var value = $('input', editor).attr('value');
           rows[r][columns[c].name] = value;
           widget._showCell(context);
-          widget._notifyUpdate(rows[r], r, c);
+          widget._notifyChange(rows[r], r, c);
         }
       }
     },
@@ -188,9 +188,11 @@
       }
     },
 
-    _notifyUpdate: function(row, r, c) {
+    _notifyChange: function(row, r, c) {
       var change = this.options.columns[c].change;
-      if (change) change(row, r, c);
+      if (change) change(row, r, c, function() {
+        
+      });
     }
 
   };
