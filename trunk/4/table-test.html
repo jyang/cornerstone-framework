@@ -21,7 +21,9 @@ var cities = {
   columns: [
     {title: 'Country', name: 'country'},
     {title: 'City', name: 'city'},
-    {title: 'Population', name: 'population', css: 'right', editor: 'text'},
+    {title: 'Population', name: 'population', css: 'right', editor: 'text', change: function(row, r) {
+      $(row).log('Updated: [' + r + ']');
+    }},
     {
       title: 'Attributes',
       name: 'attr',
