@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Table Test</title>
+
+<link rel="stylesheet" href="css/blitzer/jquery-ui.css">
+<link rel="stylesheet" href="css/blitzer/csf.css">
+
+<style>
+.right {
+  text-align: right;
+}
+</style>
+
+<script src="js/jquery-1.3.2.min.js"></script>
+<script src="js/jquery-ui-1.7.2.custom.min.js"></script>
+<script src="js/jquery-ui-select.js"></script>
+
+<script>
+var cities = {
+  columns: [
+    {title: 'Country', name: 'country'},
+    {title: 'City', name: 'city'},
+    {title: 'Population', name: 'population', css: 'right', editor: 'text'},
+    {
+      title: 'Attributes',
+      name: 'attr',
+      decorator: function(n, v){
+        return typeof(n, v) == 'object' && v.toSource ? v.toSource() : v;
+      }
+    }
+  ], rows: [
+    {country: 'China', city: 'Shanghai', population: 14000000, attr: ['home', 'sophisticated', {}]},
+    {country: 'USA', city: 'Cupertino', population: 80000, attr: {}},
+    {country: 'USA', city: 'San Jose', population: 750000, attr: {}},
+    {country: 'UK', city: 'London', population: 10000000, attr: {}},
+    {country: 'Mexico', city: 'Mexico City', population: 200000000, attr: {}},
+    {country: 'Brazil', city: 'San Paulo', population: 150000000, attr: {}}
+  ]
+};
+
+var selections = {
+  values: cities.rows,
+  identifyValue: function(value) { return value.city; },
+  selectedValueId: 'Shanghai',
+  describeValue: function(value){
+    return value.city + ', ' + value.country + ': ' + value.population;
+  },
+  selected: function(city) {$.fn.log(city);}
+};
+
+$(function() {
+  $('#city-select').select(selections);
+});
+</script>
+</head>
+<body>
+  <div id="city-select"></div>
+</body>
+</html>
