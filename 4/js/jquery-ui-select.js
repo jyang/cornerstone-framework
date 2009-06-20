@@ -31,7 +31,7 @@
       });
       html.push('</select>');
 
-      this.element.append(html.join(''));
+      this.element.html(html.join(''));
 
       // buttons
       $('select', this.element).change(select._change);

@@ -71,7 +71,7 @@
     _init: function() {
       var value = this.options.value;
       var html = ['<input value="', value, '" size="', value.length, '">'];
-      this.element.append(html.join(''));
+      this.element.html(html.join(''));
     }
 
   };
