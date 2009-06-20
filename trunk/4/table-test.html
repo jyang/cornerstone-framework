@@ -25,7 +25,7 @@ var cities = {
     {
       title: 'Attributes',
       name: 'attr',
-      decorator: function(n, v, r){
+      decorator: function(n, v, r, i){
         return typeof(n, v) == 'object' && v.toSource ? v.toSource() : v;
       }
     }
