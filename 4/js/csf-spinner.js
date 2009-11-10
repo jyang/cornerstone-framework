@@ -13,7 +13,7 @@
 
     _init: function() {
       this.element.html(this.options.spinning ? SPINNER : '');
-    },
+    }
 
   };
 
